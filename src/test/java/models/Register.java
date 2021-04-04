@@ -1,9 +1,9 @@
 package models;
 
 public class Register extends EmptyModel {
-    String email;
-    String name;
-    String password;
+    private String email;
+    private String name;
+    private String password;
 
     public Register(String email, String name, String password) {
         this.email = email;

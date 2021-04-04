@@ -2,7 +2,6 @@ package tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
-import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 
 public class BaseTest {
@@ -16,6 +15,5 @@ public class BaseTest {
 
     @BeforeClass
     public void setUp(){
-
     }
 }
