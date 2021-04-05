@@ -44,7 +44,7 @@ public class RegistrationTests extends BaseTest {
         .when()
                 .post("/doregister")
         .then()
-                .statusCode(200)
+                .statusCode(200) //TODO 400
                 .body("type", is("error"))
                 .body("message", is(" email vsk@gmail.ru уже есть в базе"));
     }
