@@ -1,5 +1,7 @@
 ### UsersBugredApiTests
 ***
+Документация: https://testbase.atlassian.net/wiki/spaces/USERS/overview
+***
 
 *  doRegister - Тесты на регистрацию в системе;
 *  CreateCompany - Тесты на Создание новой компании;
