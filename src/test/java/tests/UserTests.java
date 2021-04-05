@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static utils.FileUtils.readFromFile;
 
-public class CreateUserTests extends BaseTest {
+public class UserTests extends BaseTest {
 
     String email;
     String name;

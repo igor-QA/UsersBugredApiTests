@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static utils.FileUtils.readFromFile;
 import static org.hamcrest.Matchers.*;
 
-public class DoRegisterTests extends BaseTest {
+public class RegistrationTests extends BaseTest {
 
     String email;
     String name;

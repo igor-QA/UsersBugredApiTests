@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 import static utils.FileUtils.readFromFile;
 
-public class CreateCompanyTests extends BaseTest {
+public class CompanyTests extends BaseTest {
 
     String company_name;
     String company_type;
