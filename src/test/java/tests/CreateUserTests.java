@@ -34,14 +34,15 @@ public class CreateUserTests extends BaseTest {
                 .statusCode(200)
                 .body("name", notNullValue());
     }
-
+    //TODO в негативных тестах возвращает статус код 200, баг;
     @Test(description = "Создание пользователя с уже существующими данными")
     public void createUserAlreadyExistTest() {
         given()
                 .spec(Request.spec())
                 .body(readFromFile("src/test/resources/createUser.json"))
+        .when()
                 .post("/createuser")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("type", is("error"))
                 .body("message", is("Пользователь с таким email уже существует"));
@@ -53,9 +54,9 @@ public class CreateUserTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(user)
-                .when()
+        .when()
                 .post("/createuser")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("type", is("error"));
     }
@@ -66,9 +67,9 @@ public class CreateUserTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(user)
-                .when()
+        .when()
                 .post("/createuser")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("inn", notNullValue()); //TODO Expected: not nul , Actual: null
     }
@@ -79,9 +80,9 @@ public class CreateUserTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(user)
-                .when()
+        .when()
                 .post("/createuser")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("type", is("error"));
     }
@@ -93,9 +94,9 @@ public class CreateUserTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(user)
-                .when()
+        .when()
                 .post("/createuser")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("type", is("error"));
     }

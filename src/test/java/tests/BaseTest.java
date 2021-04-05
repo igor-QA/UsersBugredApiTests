@@ -7,7 +7,10 @@ import org.testng.annotations.BeforeClass;
 public class BaseTest {
     ObjectMapper mapper = new ObjectMapper();
     Faker faker = new Faker(); //(new Locale("ru")
-    //Экземпляры классов для степов будут здесь
+
+//    CreateCompanyBaseSteps createCompanyBaseSteps = new CreateCompanyBaseSteps();
+//    CreateUserBaseSteps createUserBaseSteps = new CreateUserBaseSteps();
+//    DoRegisterBaseSteps doRegisterBaseSteps = new DoRegisterBaseSteps();
 
     @BeforeClass
     public void setUp(){

@@ -30,9 +30,9 @@ public class DoRegisterTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(register)
-                .when()
+        .when()
                 .post("/doregister")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("name", notNullValue());
     }
@@ -42,8 +42,9 @@ public class DoRegisterTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(readFromFile("src/test/resources/userRegister.json"))
+        .when()
                 .post("/doregister")
-                .then()
+        .then()
                 .statusCode(400)
                 .body("type", is("error"))
                 .body("message", is(" email vsk@gmail.ru уже есть в базе"));
@@ -55,9 +56,9 @@ public class DoRegisterTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(register)
-                .when()
+        .when()
                 .post("/doregister")
-                .then()
+        .then()
                 .statusCode(400)
                 .body("type", is ("error"));
     }
@@ -68,9 +69,9 @@ public class DoRegisterTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(register)
-                .when()
+        .when()
                 .post("/doregister")
-                .then()
+        .then()
                 .statusCode(400)
                 .body("type", is ("error"));
     }
@@ -82,9 +83,9 @@ public class DoRegisterTests extends BaseTest {
         given()
                 .spec(Request.spec())
                 .body(register)
-                .when()
+        .when()
                 .post("/doregister")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("name", is("@"));
 
@@ -92,7 +93,7 @@ public class DoRegisterTests extends BaseTest {
 }
 
 /*
-    Здесь пытался пользоваться и разбиратьс в Jackson
+    Здесь пытался пользоваться и разбиратьс в Jackson м обьеденить проверки
     public Register getResult(Response response) throws JsonProcessingException {
         Register result;
         if (response.body().jsonPath().get("type") == null) {
