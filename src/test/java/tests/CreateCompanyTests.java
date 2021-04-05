@@ -7,6 +7,7 @@ import tests.BaseTest;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 
 public class CreateCompanyTests extends BaseTest {
 

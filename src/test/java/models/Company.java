@@ -2,11 +2,15 @@ package models;
 
 import java.util.Arrays;
 
-public class Company extends EmptyModel{
+public class Company {
     private String company_name;
     private String company_type;
     private String[] company_users = {"test@test.com", "vsk.test@vsk.ru"};
     private String email_owner;
+
+    public Company() {
+        //пустой конструктор для Jackson
+    }
 
     public Company(String company_name, String company_type, String email_owner) {
         this.company_name = company_name;

@@ -7,8 +7,8 @@ import spec.Request;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.core.Is.is;
 import static utils.FileUtils.readFromFile;
+import static org.hamcrest.Matchers.*;
 
 public class DoRegisterTests extends BaseTest {
 
@@ -59,7 +59,7 @@ public class DoRegisterTests extends BaseTest {
                 .post("/doregister")
                 .then()
                 .statusCode(400)
-                .body("type", is("error"));
+                .body("type", is ("error"));
     }
 
     @Test(description = "Регистрация с отсутвием обязательного поля: {name}")
@@ -72,7 +72,7 @@ public class DoRegisterTests extends BaseTest {
                 .post("/doregister")
                 .then()
                 .statusCode(400)
-                .body("type", is("error"));
+                .body("type", is ("error"));
     }
 
     @Test(description = "Регистрация со спецсимволом в имени")
@@ -91,18 +91,17 @@ public class DoRegisterTests extends BaseTest {
     }
 }
 
-
 /*
-    //@Step("Getting RegisterResult")
-    public EmptyModel getResult(Response response) throws JsonProcessingException {
-        EmptyModel result;
+    Здесь пытался пользоваться и разбиратьс в Jackson
+    public Register getResult(Response response) throws JsonProcessingException {
+        Register result;
         if (response.body().jsonPath().get("type") == null) {
             result = mapper.readValue(response.asString(), Register.class);
         } else {
             result = getError(response);
         }
         return result;
-    }
+        }
  */
 
 

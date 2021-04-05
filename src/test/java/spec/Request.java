@@ -11,8 +11,8 @@ import static filter.LogFilter.filters;
 public class Request {
 
     private static final RequestSpecification SPEC = new RequestSpecBuilder()
-            .addFilter(new AllureRestAssured())
             .setBaseUri("http://users.bugred.ru/tasks/rest")
+            .addFilter(new AllureRestAssured())
             .addFilter(filters().withCustomTemplates())
             .setContentType(ContentType.JSON)
             .log(LogDetail.ALL)
@@ -22,3 +22,4 @@ public class Request {
         return SPEC;
     }
 }
+

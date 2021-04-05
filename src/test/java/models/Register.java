@@ -1,9 +1,13 @@
 package models;
 
-public class Register extends EmptyModel {
+public class Register {
     private String email;
     private String name;
     private String password;
+
+    public Register() {
+        //пустой конструктор для Jackson
+    }
 
     public Register(String email, String name, String password) {
         this.email = email;

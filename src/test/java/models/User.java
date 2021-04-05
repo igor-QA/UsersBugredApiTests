@@ -5,13 +5,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Arrays;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User extends EmptyModel {
+public class User {
     private String email;
     private String name;
     private int[] tasks = {12};
     private int[] companies = {36, 37};
-    String inn;
+    private String inn;
 
+    public User() {
+        //пустой конструктор для Jackson
+    }
 
     public User(String email, String name) {
         this.email = email;
@@ -55,6 +58,13 @@ public class User extends EmptyModel {
     public void setCompanies(int[] companies) {
         this.companies = companies;
     }
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
 
     @Override
     public String toString() {
@@ -65,4 +75,5 @@ public class User extends EmptyModel {
                 "\t\"companies\": " + Arrays.toString(companies) + "\n" +
                 '}';
     }
+
 }
