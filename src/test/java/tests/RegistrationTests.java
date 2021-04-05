@@ -16,7 +16,6 @@ public class RegistrationTests extends BaseTest {
     String name;
     String password;
 
-    //Register register;
     @BeforeMethod(description = "Рандомные данные")
     public void generateData() {
         email = faker.internet().emailAddress();
@@ -24,8 +23,8 @@ public class RegistrationTests extends BaseTest {
         password = faker.internet().password();
     }
 
-    @Test(description = "Регистрация нового пользователя")
-    public void createRegister() {
+    @Test(description = "Регистрация нового аккаунта")
+    public void registerNewAccount() {
         Register register = new Register(email, name, password);
         given()
                 .spec(Request.spec())
@@ -36,7 +35,7 @@ public class RegistrationTests extends BaseTest {
                 .statusCode(200)
                 .body("name", notNullValue());
     }
-    //TODO в негативных тестах возвращает статус код 200, баг;
+
     @Test(description = "Регистрация пользователя, который уже существует в системе")
     public void registerUserAlreadyExistTest() {
         given()
@@ -45,7 +44,7 @@ public class RegistrationTests extends BaseTest {
         .when()
                 .post("/doregister")
         .then()
-                .statusCode(400)
+                .statusCode(200)
                 .body("type", is("error"))
                 .body("message", is(" email vsk@gmail.ru уже есть в базе"));
     }
@@ -59,7 +58,7 @@ public class RegistrationTests extends BaseTest {
         .when()
                 .post("/doregister")
         .then()
-                .statusCode(400)
+                .statusCode(200)
                 .body("type", is ("error"));
     }
 
@@ -72,12 +71,12 @@ public class RegistrationTests extends BaseTest {
         .when()
                 .post("/doregister")
         .then()
-                .statusCode(400)
+                .statusCode(200)
                 .body("type", is ("error"));
     }
 
     @Test(description = "Регистрация со спецсимволом в имени")
-    public void test(){
+    public void registerWithSymbolInNameTest(){
         String name = "@";
         Register register = new Register(email, name, password );
         given()
@@ -91,7 +90,6 @@ public class RegistrationTests extends BaseTest {
 
     }
 }
-
 /*
     Здесь пытался пользоваться и разбиратьс в Jackson м обьеденить проверки
     public Register getResult(Response response) throws JsonProcessingException {

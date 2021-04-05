@@ -25,7 +25,7 @@ public class CompanyTests extends BaseTest {
     }
 
     @Test(description="Создание компании")
-    public void createCompany() {
+    public void createNewCompany() {
         Company company = new Company(company_name, company_type, company_users ,email_owner);
         given()
                 .spec(Request.spec())
@@ -36,7 +36,7 @@ public class CompanyTests extends BaseTest {
                 .statusCode(200);
                 //.body("type",is ("success")); //Expected: not null Actual: null
     }
-    //TODO в негативных тестах возвращает статус код 200, баг;
+
     @Test(description = "Создание компании, которая уже существует в системе")
     public void createCompanyAlreadyExistTest(){
         given()

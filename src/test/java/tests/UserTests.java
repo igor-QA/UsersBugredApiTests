@@ -23,18 +23,18 @@ public class UserTests extends BaseTest {
     }
 
     @Test(description = "Создание нового пользователя")
-    public void createUser() {
+    public void createNewUser() {
         User user = new User(email, name);
         given()
                 .spec(Request.spec())
                 .body(user)
-                .when()
+        .when()
                 .post("/createuser")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("name", notNullValue());
     }
-    //TODO в негативных тестах возвращает статус код 200, баг;
+
     @Test(description = "Создание пользователя с уже существующими данными")
     public void createUserAlreadyExistTest() {
         given()

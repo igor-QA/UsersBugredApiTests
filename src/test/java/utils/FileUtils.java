@@ -13,7 +13,7 @@ public class FileUtils {
             return IOUtils.toString(fis, String.valueOf(StandardCharsets.UTF_8));
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 }
