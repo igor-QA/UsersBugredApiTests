@@ -8,9 +8,6 @@
 Стек: AllureReport, REST Assured, TestNG, Maven
 
 ***
-`mvn clean test`
-
-`allure serve allure-result`
 
 ### Скриншоты
 * Можно посмотреть здесь: ссылка!
