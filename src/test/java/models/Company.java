@@ -1,63 +1,64 @@
 package models;
 
-import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 public class Company {
-    private String company_name;
-    private String company_type;
-    private String[] company_users;
-    private String email_owner;
+    @JsonProperty("company_name")
+    private String companyName;
+    @JsonProperty("company_type")
+    private String companyType;
+    @JsonProperty("company_users")
+    private List<String> companyUsers;
+    @JsonProperty("email_owner")
+    private String emailOwner;
 
-    public Company() {
-        //пустой конструктор для Jackson
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public Company(String company_name, String company_type,String[]company_users, String email_owner) {
-        this.company_name = company_name;
-        this.company_users = company_users;
-        this.company_type = company_type;
-        this.email_owner = email_owner;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public String getCompanyType() {
+        return companyType;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyType(String companyType) {
+        this.companyType = companyType;
     }
 
-    public String getCompany_type() {
-        return company_type;
+    public List<String> getCompanyUsers() {
+        return companyUsers;
     }
 
-    public void setCompany_type(String company_type) {
-        this.company_type = company_type;
+    public void setCompanyUsers(List<String> companyUsers) {
+        this.companyUsers = companyUsers;
     }
 
-    public String[] getCompany_users() {
-        return company_users;
+    public String getEmailOwner() {
+        return emailOwner;
     }
 
-    public void setCompany_users(String[] company_users) {
-        this.company_users = company_users;
+    public void setEmailOwner(String emailOwner) {
+        this.emailOwner = emailOwner;
     }
-
-    public String getEmail_owner() {
-        return email_owner;
-    }
-
-    public void setEmail_owner(String email_owner) {
-        this.email_owner = email_owner;
+    public Company(String companyName, String companyType, List<String> companyUsers, String emailOwner) {
+        this.companyName = companyName;
+        this.companyType = companyType;
+        this.companyUsers = companyUsers;
+        this.emailOwner = emailOwner;
     }
 
     @Override
     public String toString() {
         return "{\n" +
-                "\t\"company_name\": \"" + company_name + "\",\n" +
-                "\t\"company_type\": \"" + company_type + "\",\n" +
-                "\t\"company_users\": " + Arrays.toString(company_users) + "\n" +
-                "\t\"email_owner\": \"" + email_owner + "\"\n" +
+                "\t\"company_name\": \"" + companyName + "\",\n" +
+                "\t\"company_type\": \"" + companyType + "\",\n" +
+                "\t\"company_users\": " + companyUsers.toString() + "\n" +
+                "\t\"email_owner\": \"" + emailOwner + "\"\n" +
                 '}';
     }
 }

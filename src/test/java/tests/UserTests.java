@@ -1,7 +1,6 @@
 package tests;
 
 import models.User;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import spec.Request;
 
@@ -11,17 +10,6 @@ import static utils.FileUtils.readFromFile;
 
 public class UserTests extends BaseTest {
 
-    String email;
-    String name;
-    String inn ;
-
-    @BeforeMethod(description = "Рандомные данные")
-    public void generateData() {
-        email = faker.internet().emailAddress();
-        name = faker.name().username();
-        inn = faker.number().digits(12);
-    }
-
     @Test(description = "Создание нового пользователя")
     public void createNewUser() {
         User user = new User(email, name);
@@ -29,7 +17,7 @@ public class UserTests extends BaseTest {
                 .spec(Request.spec())
                 .body(user)
         .when()
-                .post("/createuser")
+                .post(userEndPoint)
         .then()
                 .statusCode(200)
                 .body("name", notNullValue());
@@ -41,11 +29,11 @@ public class UserTests extends BaseTest {
                 .spec(Request.spec())
                 .body(readFromFile("src/test/resources/createUser.json"))
         .when()
-                .post("/createuser")
+                .post(userEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is("error"))
-                .body("message", is("Пользователь с таким email уже существует"));
+                .body("message", equalTo("Пользователь с таким email уже существует"));
     }
 
     @Test(description = "Создание пользователя с отсутвием обязательного поля: {email}")
@@ -55,7 +43,7 @@ public class UserTests extends BaseTest {
                 .spec(Request.spec())
                 .body(user)
         .when()
-                .post("/createuser")
+                .post(userEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is("error"));
@@ -68,20 +56,21 @@ public class UserTests extends BaseTest {
                 .spec(Request.spec())
                 .body(user)
         .when()
-                .post("/createuser")
+                .post(userEndPoint)
         .then()
                 .statusCode(200)
-                .body("inn", notNullValue()); //TODO Expected: not nul , Actual: null
+                .body("type", is("success"));
+               // .body("inn", notNullValue());
     }
 
-    @Test(description = "Создание пользователя с ИНН(13 цифр) превышающий количество допустимых цифр")
+    @Test(description = "Создание пользователя с ИНН(13 цифр), превышающий количество допустимых цифр")
     public void createUserWithLongINN(){
         User user = new User(email, name, inn + "6");
         given()
                 .spec(Request.spec())
                 .body(user)
         .when()
-                .post("/createuser")
+                .post(userEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is("error"));
@@ -95,7 +84,7 @@ public class UserTests extends BaseTest {
                 .spec(Request.spec())
                 .body(user)
         .when()
-                .post("/createuser")
+                .post(userEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is("error"));

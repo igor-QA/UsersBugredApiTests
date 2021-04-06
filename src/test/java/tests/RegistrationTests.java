@@ -1,52 +1,41 @@
 package tests;
 
 import models.Register;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import spec.Request;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static utils.FileUtils.readFromFile;
-import static org.hamcrest.Matchers.*;
 
 public class RegistrationTests extends BaseTest {
 
-    String email;
-    String name;
-    String password;
-
-    @BeforeMethod(description = "Рандомные данные")
-    public void generateData() {
-        email = faker.internet().emailAddress();
-        name = faker.name().firstName();
-        password = faker.internet().password();
-    }
-
     @Test(description = "Регистрация нового аккаунта")
     public void registerNewAccount() {
+
         Register register = new Register(email, name, password);
         given()
                 .spec(Request.spec())
                 .body(register)
         .when()
-                .post("/doregister")
+                .post(registerEndPoint)
         .then()
                 .statusCode(200)
                 .body("name", notNullValue());
     }
 
     @Test(description = "Регистрация пользователя, который уже существует в системе")
-    public void registerUserAlreadyExistTest() {
+    public void registerUserAlreadyExist() {
         given()
                 .spec(Request.spec())
                 .body(readFromFile("src/test/resources/userRegister.json"))
         .when()
-                .post("/doregister")
+                .post(registerEndPoint)
         .then()
-                .statusCode(200) //TODO 400
-                .body("type", is("error"))
-                .body("message", is(" email vsk@gmail.ru уже есть в базе"));
+                .statusCode(200) //TODO
+                .body("type", is("error"));
+                //.body("message", equalTo("email vsk@gmail.ru уже есть в базе")); TODO
     }
 
     @Test(description = "Регистрация с некорректным: {email}")
@@ -56,7 +45,7 @@ public class RegistrationTests extends BaseTest {
                 .spec(Request.spec())
                 .body(register)
         .when()
-                .post("/doregister")
+                .post(registerEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is ("error"));
@@ -69,7 +58,7 @@ public class RegistrationTests extends BaseTest {
                 .spec(Request.spec())
                 .body(register)
         .when()
-                .post("/doregister")
+                .post(registerEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is ("error"));
@@ -83,24 +72,9 @@ public class RegistrationTests extends BaseTest {
                 .spec(Request.spec())
                 .body(register)
         .when()
-                .post("/doregister")
+                .post(registerEndPoint)
         .then()
                 .statusCode(200)
                 .body("name", is("@"));
-
     }
 }
-/*
-    Здесь пытался пользоваться и разбиратьс в Jackson м обьеденить проверки
-    public Register getResult(Response response) throws JsonProcessingException {
-        Register result;
-        if (response.body().jsonPath().get("type") == null) {
-            result = mapper.readValue(response.asString(), Register.class);
-        } else {
-            result = getError(response);
-        }
-        return result;
-        }
- */
-
-

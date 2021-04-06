@@ -1,6 +1,5 @@
 package spec;
 
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
@@ -11,7 +10,8 @@ import static filter.LogFilter.filters;
 public class Request {
 
     private static final RequestSpecification SPEC = new RequestSpecBuilder()
-            .setBaseUri("http://users.bugred.ru/tasks/rest")
+            .setBaseUri("http://users.bugred.ru")
+            .setBasePath("/tasks/rest")
             .addFilter(filters().withCustomTemplates())
             .setContentType(ContentType.JSON)
             .log(LogDetail.ALL)

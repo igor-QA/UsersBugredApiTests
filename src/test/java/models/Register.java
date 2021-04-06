@@ -5,16 +5,6 @@ public class Register {
     private String name;
     private String password;
 
-    public Register() {
-        //пустой конструктор для Jackson
-    }
-
-    public Register(String email, String name, String password) {
-        this.email = email;
-        this.name = name;
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -36,6 +26,12 @@ public class Register {
     }
 
     public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Register(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
         this.password = password;
     }
 

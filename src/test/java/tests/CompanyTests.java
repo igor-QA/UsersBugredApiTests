@@ -1,40 +1,27 @@
 package tests;
 
 import models.Company;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import spec.Request;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static utils.FileUtils.readFromFile;
 
 public class CompanyTests extends BaseTest {
 
-    String company_name;
-    String company_type;
-    String email_owner;
-    String[] company_users;
-
-    @BeforeMethod(description = "Рандомные данные")
-    public void generateData() {
-        company_name = faker.company().name();
-        company_type = "ОАО";
-        email_owner = faker.internet().emailAddress();
-        company_users = new String[]{"test@test.com", "vsk.test@vsk.ru"};
-    }
-
     @Test(description="Создание компании")
     public void createNewCompany() {
-        Company company = new Company(company_name, company_type, company_users ,email_owner);
+        Company company = new Company(companyName, companyType, companyUsers ,emailOwner);
         given()
                 .spec(Request.spec())
                 .body(company)
         .when()
-                .post("/createuser")
+                .post(companyEndPoint)
         .then()
-                .statusCode(200);
-                //.body("type",is ("success")); //Expected: not null Actual: null
+                .statusCode(200)
+                .body( "type", is("success"));
     }
 
     @Test(description = "Создание компании, которая уже существует в системе")
@@ -43,7 +30,7 @@ public class CompanyTests extends BaseTest {
                 .spec(Request.spec())
                 .body(readFromFile("src/test/resources/createCompany.json"))
         .when()
-                .post("/createuser")
+                .post(companyEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is("error"));
@@ -51,12 +38,12 @@ public class CompanyTests extends BaseTest {
 
     @Test(description = "Создание компании с отсутвием обязательного поля: {email_owner}")
     public void emptyEmailOwnerTest(){
-        Company company = new Company(company_name, company_type, company_users ,"");
+        Company company = new Company(companyName, companyType, companyUsers ,"");
         given()
                 .spec(Request.spec())
                 .body(company)
         .when()
-                .post("/createuser")
+                .post(companyEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is("error"));
@@ -65,12 +52,12 @@ public class CompanyTests extends BaseTest {
 
     @Test(description = "Создание компании с некорректным: {email}")
     public void incorrectEmailTest(){
-        Company company = new Company(email_owner, company_name, company_users, company_type);
+        Company company = new Company(emailOwner, companyName, companyUsers, companyType);
         given()
                 .spec(Request.spec())
                 .body(company)
         .when()
-                .post("/createuser")
+                .post(companyEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is("error"));
@@ -79,13 +66,13 @@ public class CompanyTests extends BaseTest {
 
     @Test(description = "Создание компании с некорректным типом")
     public void incorrectTypeCompanyTest(){
-        company_type = faker.company().suffix();
-        Company company = new Company(company_name, company_type, company_users ,email_owner);
+        String companyType = "LLC";
+        Company company = new Company(companyName, companyType, companyUsers ,emailOwner);
         given()
                 .spec(Request.spec())
                 .body(company)
         .when()
-                .post("/createuser")
+                .post(companyEndPoint)
         .then()
                 .statusCode(200)
                 .body("type", is("error"));
