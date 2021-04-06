@@ -5,6 +5,10 @@ public class Register {
     private String name;
     private String password;
 
+    public Register() {
+        super();
+    }
+
     public String getEmail() {
         return email;
     }

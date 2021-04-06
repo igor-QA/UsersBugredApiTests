@@ -14,6 +14,10 @@ public class User {
     private List<Integer> companies = Arrays.asList(36, 37);
     private String inn;
 
+    public User() {
+        super();
+    }
+
     public String getEmail() {
         return email;
     }

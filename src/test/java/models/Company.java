@@ -14,6 +14,10 @@ public class Company {
     @JsonProperty("email_owner")
     private String emailOwner;
 
+    public Company() {
+        super();
+    }
+
     public String getCompanyName() {
         return companyName;
     }

@@ -16,7 +16,7 @@ public class CompanyBaseSteps extends BaseTest {
     }
 
     @Step("Отправить POST запроос и проверить результат")
-    public void sendAndCheckPostRequest(){
+    public void sendAndCheckPostRequest(String str){
         spec()
                 .body(company)
        .when()
@@ -24,4 +24,5 @@ public class CompanyBaseSteps extends BaseTest {
        .then()
                 .spec(ResponseSuccess.spec());
     }
+
 }

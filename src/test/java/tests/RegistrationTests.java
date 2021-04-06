@@ -14,7 +14,7 @@ public class RegistrationTests extends BaseTest {
     Register register;
 
     @Test(description = "Регистрация нового аккаунта")
-    @Story("")
+    @Story("Пользователь должен успешно зарегистрировать новый аккаунт")
     public void registerNewAccount() {
          register = new Register(email, name, password);
 
@@ -27,6 +27,7 @@ public class RegistrationTests extends BaseTest {
     }
 
     @Test(description = "Регистрация пользователя, который уже существует в системе")
+    @Story("Пользователь не должен зарегистрировать аккаунт, который уже существует в системе")
     public void registerUserAlreadyExist() {
         spec()
                 .body(readFromFile("src/test/resources/userRegister.json"))
@@ -38,6 +39,7 @@ public class RegistrationTests extends BaseTest {
     }
 
     @Test(description = "Регистрация с некорректным: {email}")
+    @Story("Пользователь не должен зарегистрировать аккаунт с невалидным Email")
     public void incorrectEmailTest() {
         register = new Register(password, email, name);
         spec()
@@ -49,8 +51,9 @@ public class RegistrationTests extends BaseTest {
     }
 
     @Test(description = "Регистрация с отсутвием обязательного поля: {name}")
+    @Story("Пользователь не должен зарегистрировать аккаунт без указания Имени")
     public void emptyNameTest() {
-        register = new Register(email, name, "");
+        register = new Register(email, "", password);
 
         spec()
                 .body(register)
@@ -61,6 +64,7 @@ public class RegistrationTests extends BaseTest {
     }
 
     @Test(description = "Регистрация со спецсимволом в имени")
+    @Story("Пользователь не должен зарегистрировать аккаунт с использованием спецсимволов в Имени")
     public void registerWithSymbolInNameTest(){
         String name = "@";
         Register register = new Register(email, name, password );
