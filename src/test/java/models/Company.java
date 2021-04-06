@@ -45,6 +45,7 @@ public class Company {
     public void setEmailOwner(String emailOwner) {
         this.emailOwner = emailOwner;
     }
+
     public Company(String companyName, String companyType, List<String> companyUsers, String emailOwner) {
         this.companyName = companyName;
         this.companyType = companyType;

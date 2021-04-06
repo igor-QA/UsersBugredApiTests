@@ -1,25 +1,29 @@
 package tests;
 
+import io.qameta.allure.Story;
 import models.Register;
 import org.testng.annotations.Test;
+import spec.ResponseError;
+import spec.ResponseSuccess;
 
 import static org.hamcrest.Matchers.*;
 import static spec.Request.spec;
 import static utils.FileUtils.readFromFile;
 
 public class RegistrationTests extends BaseTest {
+    Register register;
 
     @Test(description = "Регистрация нового аккаунта")
+    @Story("")
     public void registerNewAccount() {
-         Register register = new Register(email, name, password);
+         register = new Register(email, name, password);
 
          spec()
                 .body(register)
         .when()
                 .post(registerEndPoint)
         .then()
-                .statusCode(200)
-                .body("name", notNullValue());
+                .spec(ResponseSuccess.spec());
     }
 
     @Test(description = "Регистрация пользователя, который уже существует в системе")
@@ -29,35 +33,31 @@ public class RegistrationTests extends BaseTest {
         .when()
                 .post(registerEndPoint)
         .then()
-                .statusCode(200) //TODO
-                .body("type", is("error"))
-                .body("message", equalTo("email vsk@gmail.ru уже есть в базе")); //TODO
+                .spec(ResponseError.spec());
+                //.body("message", equalTo("email vsk@gmail.ru уже есть в базе")); //TODO
     }
 
     @Test(description = "Регистрация с некорректным: {email}")
     public void incorrectEmailTest() {
-        Register register = new Register(password, email, name);
-
+        register = new Register(password, email, name);
         spec()
                 .body(register)
         .when()
                 .post(registerEndPoint)
         .then()
-                .statusCode(200)
-                .body("type", is ("error"));
+                .spec(ResponseError.spec());
     }
 
     @Test(description = "Регистрация с отсутвием обязательного поля: {name}")
     public void emptyNameTest() {
-        Register register = new Register(email, name, "");
+        register = new Register(email, name, "");
 
         spec()
                 .body(register)
         .when()
                 .post(registerEndPoint)
         .then()
-                .statusCode(200)
-                .body("type", is ("error"));
+                .spec(ResponseError.spec());
     }
 
     @Test(description = "Регистрация со спецсимволом в имени")
@@ -70,7 +70,7 @@ public class RegistrationTests extends BaseTest {
         .when()
                 .post(registerEndPoint)
         .then()
-                .statusCode(200)
+                .spec(ResponseSuccess.spec())
                 .body("name", is("@"));
     }
 }

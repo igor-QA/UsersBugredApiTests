@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.with;
 
 public class Request {
 
-    private static final RequestSpecification SPEC =  with()//new RequestSpecBuilder()
+    private static final RequestSpecification SPEC =  with()
             .baseUri("http://users.bugred.ru")
             .basePath("/tasks/rest")
             .filter(filters().withCustomTemplates())
@@ -19,8 +19,3 @@ public class Request {
         return SPEC;
     }
 }
-
-
-
-
-
