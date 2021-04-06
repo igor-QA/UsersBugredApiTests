@@ -10,6 +10,10 @@
 Стек: AllureReport, REST Assured, TestNG, Maven
 
 ***
+mvn clean test 
+
+mvn allure: serve
+***
 
 ### Скриншоты
 * Можно посмотреть здесь: https://telegra.ph/Allure-Reports-04-05
