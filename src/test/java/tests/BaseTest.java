@@ -7,24 +7,23 @@ import com.github.javafaker.Faker;
 import org.testng.annotations.BeforeClass;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class BaseTest {
     /**EndPoint*/
-    final static String companyEndPoint = "/createcompany";
-    final static String userEndPoint = "/createuser";
-    final static String registerEndPoint = "/doregister";
+    final String companyEndPoint = "/createcompany";
+    final String userEndPoint = "/createuser";
+    final String registerEndPoint = "/doregister";
     /**JavaFaker*/
     Faker faker = new Faker(); //(new Locale("ru")
-    public final String companyName = faker.company().name();
-    public final String companyType = "ОАО";
-    public final String emailOwner = faker.internet().emailAddress();
-    public final List<String> companyUsers = Arrays.asList("test@test.com", "vsk.test@vsk.ru");
-    public final String email = faker.internet().emailAddress();
-    public final String name = faker.name().username();
-    public final String password = faker.internet().password();
-    public final String inn = faker.number().digits(12);
+    final String companyName = faker.company().name();
+    final String companyType = "ОАО";
+    final String emailOwner = faker.internet().emailAddress();
+    final List<String> companyUsers = Arrays.asList("test@test.com", "vsk.test@vsk.ru");
+    final String email = faker.internet().emailAddress();
+    final String name = faker.name().username();
+    final String password = faker.internet().password();
+    final String inn = faker.number().digits(12);
 
     @BeforeClass
     public static void setUp(){

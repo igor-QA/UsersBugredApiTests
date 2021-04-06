@@ -2,11 +2,9 @@ package tests;
 
 import models.Company;
 import org.testng.annotations.Test;
-import spec.Request;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static spec.Request.spec;
 import static utils.FileUtils.readFromFile;
 
 public class CompanyTests extends BaseTest {
@@ -14,8 +12,8 @@ public class CompanyTests extends BaseTest {
     @Test(description="Создание компании")
     public void createNewCompany() {
         Company company = new Company(companyName, companyType, companyUsers ,emailOwner);
-        given()
-                .spec(Request.spec())
+
+        spec()
                 .body(company)
         .when()
                 .post(companyEndPoint)
@@ -26,8 +24,7 @@ public class CompanyTests extends BaseTest {
 
     @Test(description = "Создание компании, которая уже существует в системе")
     public void createCompanyAlreadyExistTest(){
-        given()
-                .spec(Request.spec())
+        spec()
                 .body(readFromFile("src/test/resources/createCompany.json"))
         .when()
                 .post(companyEndPoint)
@@ -39,8 +36,8 @@ public class CompanyTests extends BaseTest {
     @Test(description = "Создание компании с отсутвием обязательного поля: {email_owner}")
     public void emptyEmailOwnerTest(){
         Company company = new Company(companyName, companyType, companyUsers ,"");
-        given()
-                .spec(Request.spec())
+
+        spec()
                 .body(company)
         .when()
                 .post(companyEndPoint)
@@ -53,8 +50,8 @@ public class CompanyTests extends BaseTest {
     @Test(description = "Создание компании с некорректным: {email}")
     public void incorrectEmailTest(){
         Company company = new Company(emailOwner, companyName, companyUsers, companyType);
-        given()
-                .spec(Request.spec())
+
+        spec()
                 .body(company)
         .when()
                 .post(companyEndPoint)
@@ -68,8 +65,8 @@ public class CompanyTests extends BaseTest {
     public void incorrectTypeCompanyTest(){
         String companyType = "LLC";
         Company company = new Company(companyName, companyType, companyUsers ,emailOwner);
-        given()
-                .spec(Request.spec())
+
+        spec()
                 .body(company)
         .when()
                 .post(companyEndPoint)

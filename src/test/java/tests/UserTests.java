@@ -2,10 +2,9 @@ package tests;
 
 import models.User;
 import org.testng.annotations.Test;
-import spec.Request;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+import static spec.Request.spec;
 import static utils.FileUtils.readFromFile;
 
 public class UserTests extends BaseTest {
@@ -13,8 +12,7 @@ public class UserTests extends BaseTest {
     @Test(description = "Создание нового пользователя")
     public void createNewUser() {
         User user = new User(email, name);
-        given()
-                .spec(Request.spec())
+        spec()
                 .body(user)
         .when()
                 .post(userEndPoint)
@@ -25,8 +23,7 @@ public class UserTests extends BaseTest {
 
     @Test(description = "Создание пользователя с уже существующими данными")
     public void createUserAlreadyExistTest() {
-        given()
-                .spec(Request.spec())
+        spec()
                 .body(readFromFile("src/test/resources/createUser.json"))
         .when()
                 .post(userEndPoint)
@@ -39,8 +36,7 @@ public class UserTests extends BaseTest {
     @Test(description = "Создание пользователя с отсутвием обязательного поля: {email}")
     public void emptyEmailTest() {
         User user = new User("", name);
-        given()
-                .spec(Request.spec())
+        spec()
                 .body(user)
         .when()
                 .post(userEndPoint)
@@ -52,8 +48,7 @@ public class UserTests extends BaseTest {
     @Test(description = "Создание пользователя с уникальным ИНН(12 цифр)")
     public void createUserWithINN(){
         User user = new User(email, name, inn);
-        given()
-                .spec(Request.spec())
+        spec()
                 .body(user)
         .when()
                 .post(userEndPoint)
@@ -66,8 +61,7 @@ public class UserTests extends BaseTest {
     @Test(description = "Создание пользователя с ИНН(13 цифр), превышающий количество допустимых цифр")
     public void createUserWithLongINN(){
         User user = new User(email, name, inn + "6");
-        given()
-                .spec(Request.spec())
+        spec()
                 .body(user)
         .when()
                 .post(userEndPoint)
@@ -80,8 +74,7 @@ public class UserTests extends BaseTest {
     public void createUserWithLetterInINN(){
         String inn = "13131313131F";
         User user = new User(email, name, inn );
-        given()
-                .spec(Request.spec())
+        spec()
                 .body(user)
         .when()
                 .post(userEndPoint)
