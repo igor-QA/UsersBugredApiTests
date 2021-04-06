@@ -9,7 +9,6 @@ public class ResponseSuccess {
 
     private static final ResponseSpecification success = new ResponseSpecBuilder()
             .expectStatusCode(200)
-            //.expectBody(contains("success"))
             .expectBody("type", equalTo("success"))
             .build();
 
@@ -17,4 +16,3 @@ public class ResponseSuccess {
         return success;
     }
 }
-

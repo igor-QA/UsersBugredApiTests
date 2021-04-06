@@ -28,8 +28,10 @@ public class UserTests extends BaseTest {
     @Test(description = "Создание пользователя с уже существующими данными")
     @Story("Пользователь не должен успешно создать аккаунт, с данными которые уже есть в системе")
     public void createUserAlreadyExistTest() {
+        String userError = (readFromFile("src/test/resources/createUser.json"));
+
         spec()
-                .body(readFromFile("src/test/resources/createUser.json"))
+                .body(userError)
         .when()
                 .post(userEndPoint)
         .then()
