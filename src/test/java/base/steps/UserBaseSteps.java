@@ -67,6 +67,7 @@ public class UserBaseSteps extends BaseTest {
                 .post(userEndPoint);
         try {
             getAssert(response.jsonPath().getString("type"), "error");
+            assertThat(response.jsonPath().getString("type")).isNotNull();
         } catch (NullPointerException e) {
             e.printStackTrace(); //("Пользователь с таким email уже существует");
         }
