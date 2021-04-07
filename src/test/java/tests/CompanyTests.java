@@ -22,21 +22,21 @@ public class CompanyTests extends BaseTest {
     @Story("Пользователь не должен зарегистрировать компанию в системе без Email")
     public void emptyEmailOwnerTest(){
        companyBaseSteps.createPostRequestWithEmptyEmail();
-       companyBaseSteps.sendAndCheckPostErrorRequest("error");
+       companyBaseSteps.sendAndCheckErrorPostRequest("error");
     }
 
     @Test(description = "Создание компании с некорректным: {email}")
     @Story("Пользователь не должен зарегистрировать компанию в системе с невалидным Email")
     public void incorrectEmailTest(){
         companyBaseSteps.createPostRequestWithIncorrectEmail();
-        companyBaseSteps.sendAndCheckPostErrorRequest("error");
+        companyBaseSteps.sendAndCheckErrorPostRequest("error");
     }
 
     @Test(description = "Создание компании с некорректным типом")
     @Story("Пользователь не должен зарегистрировать компанию в системе c некорректным типом")
     public void incorrectTypeCompanyTest(){
         companyBaseSteps.createPostRequestWithIncorrectType("LLC");
-        companyBaseSteps.sendAndCheckPostErrorRequest("error");
+        companyBaseSteps.sendAndCheckErrorPostRequest("error");
     }
 
     @Test(description = "Создание компании, которая уже существует в системе")

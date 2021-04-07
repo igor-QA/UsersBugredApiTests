@@ -22,21 +22,21 @@ public class RegistrationTests extends BaseTest {
     @Story("Пользователь не должен зарегистрировать аккаунт с невалидным Email")
     public void incorrectEmailTest() {
         registrationBaseSteps.createPostRequestWithIncorrectEmail();
-        registrationBaseSteps.sendAndCheckPostErrorRequest("error");
+        registrationBaseSteps.sendAndCheckErrorPostRequest("error");
     }
 
     @Test(description = "Регистрация с отсутвием обязательного поля: {name}")
     @Story("Пользователь не должен зарегистрировать аккаунт без указания Имени")
     public void emptyNameTest() {
         registrationBaseSteps.createPostRequestWithIncorrectName();
-        registrationBaseSteps.sendAndCheckPostErrorRequest("error");
+        registrationBaseSteps.sendAndCheckErrorPostRequest("error");
     }
 
     @Test(description = "Регистрация со спецсимволом в имени")
     @Story("Пользователь не должен зарегистрировать аккаунт с использованием спецсимволов в Имени")
     public void registerWithSymbolInNameTest(){
         registrationBaseSteps.createPostRequestWithSymbolInName();
-        registrationBaseSteps.sendAndCheckPostErrorRequest("error");
+        registrationBaseSteps.sendAndCheckErrorPostRequest("error");
     }
 
     @Test(description = "Регистрация пользователя, который уже существует в системе")

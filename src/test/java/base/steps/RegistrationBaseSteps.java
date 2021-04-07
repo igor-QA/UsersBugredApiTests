@@ -11,30 +11,30 @@ import static spec.Request.spec;
 public class RegistrationBaseSteps extends BaseTest {
     Register register;
 
-    @Step("Проверить регистрация нового аккаунта")
+    @Step("Зарегистрировать новый аккаунта")
     public void successRegisterNewAccount (){
         register = new Register(email, name, password);
     }
 
-    @Step("Проверить Регистрацию нового аккаунта c некорректным Email")
+    @Step("Зарегистрировать новый аккаунта c некорректным Email")
     public void createPostRequestWithIncorrectEmail(){
         register = new Register(password, email, name);
     }
 
-    @Step("Проверить регистрацию с отсутвием обязательного поля Имя")
+    @Step("Зарегистрировать аккаунт с отсутвием обязательного поля Имя")
     public void createPostRequestWithIncorrectName(){
         register = new Register(email, "", password);
     }
 
-    @Step("Проверить регистрацию со спецсимволом в имени")
+    @Step("Зарегистрировать аккаунт со спецсимволом в имени")
     public void createPostRequestWithSymbolInName(){
         String name = "@";
         register = new Register(email, name, password );
         //.body("name", is("@"));
     }
 
-    @Step("Отправить POST запроос и проверить результат")
-    public void sendAndCheckPostErrorRequest(String str){
+    @Step("Отправить POST запрос и проверить результат")
+    public void sendAndCheckErrorPostRequest(String str){
         spec()
                 .body(register)
         .when()
@@ -43,7 +43,7 @@ public class RegistrationBaseSteps extends BaseTest {
                 .spec(ResponseError.spec());
     }
 
-    @Step("Отправить POST запроос и проверить результат")
+    @Step("Отправить POST запрос и проверить результат")
     public void sendAndCheckSuccessPostRequest(String str) {
         spec()
                 .body(register)

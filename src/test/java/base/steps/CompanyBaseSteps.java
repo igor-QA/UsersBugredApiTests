@@ -30,8 +30,8 @@ public class CompanyBaseSteps extends BaseTest {
         String companyType = "LLC";
         company = new Company(companyName, companyType, companyUsers, emailOwner);
     }
-    @Step("Отправить POST запроос и проверить результат")
-    public void sendAndCheckPostErrorRequest(String str) {
+    @Step("Отправить POST запрос и проверить результат")
+    public void sendAndCheckErrorPostRequest(String str) {
          spec()
                 .body(company)
          .when()
@@ -39,7 +39,7 @@ public class CompanyBaseSteps extends BaseTest {
          .then()
                 .spec(ResponseError.spec());
     }
-    @Step("Отправить POST запроос и проверить результат")
+    @Step("Отправить POST запрос и проверить результат")
     public void sendAndCheckSuccessPostRequest(String str) {
          spec()
                 .body(company)
