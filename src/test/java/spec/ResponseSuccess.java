@@ -12,7 +12,7 @@ public class ResponseSuccess {
             .expectBody("type", equalTo("success"))
             .build();
 
-    public static ResponseSpecification spec(){
+    public static ResponseSpecification spec() {
         return success;
     }
 }

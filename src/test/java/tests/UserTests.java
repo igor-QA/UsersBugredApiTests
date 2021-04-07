@@ -3,11 +3,6 @@ package tests;
 import base.steps.UserBaseSteps;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
-import spec.ResponseError;
-
-import static org.hamcrest.Matchers.equalTo;
-import static spec.Request.spec;
-import static utils.FileUtils.readFromFile;
 
 public class UserTests extends BaseTest {
     UserBaseSteps userBaseSteps = new UserBaseSteps();
@@ -28,33 +23,29 @@ public class UserTests extends BaseTest {
 
     @Test(description = "Создание пользователя с уникальным ИНН(12 цифр)")
     @Story("Пользователь должен успешно создать аккаунт c валидным ИНН")
-    public void createUserWithINN(){
+    public void createUserWithINN() {
         userBaseSteps.createNewUserWithINN();
         userBaseSteps.sendAndCheckSuccessPostRequest("success");
     }
 
     @Test(description = "Создание пользователя с ИНН(13 цифр), превышающий количество допустимых цифр")
     @Story("Пользователь не должен успешно создать аккаунт с невалидным ИНН")
-    public void createUserWithLongINN(){
+    public void createUserWithLongINN() {
         userBaseSteps.createNewUserWithLongINN();
         userBaseSteps.sendAndCheckErrorPostRequest("error");
     }
+
     @Test(description = "Создание пользователя с буквами и символами в ИНН")
     @Story("Пользователь не должен успешно создать аккаунт с буквами ИНН")
-    public void createUserWithSymbolInINN(){
+    public void createUserWithSymbolInINN() {
         userBaseSteps.createNewUserWithLetterInINN();
         userBaseSteps.sendAndCheckErrorPostRequest("error");
     }
 
     @Test(description = "Создание пользователя с уже существующими данными")
-    @Story("Пользователь не должен успешно создать аккаунт, с данными которые уже есть в системе")
+    @Story("Пользователь не должен успешно создать аккаунт c данными, которые уже есть в системе")
     public void createUserAlreadyExistTest() {
-        spec()
-                .body(readFromFile("src/test/resources/createUser.json"))
-        .when()
-                .post(userEndPoint)
-        .then()
-                .spec(ResponseError.spec())
-                .body("message", equalTo("Пользователь с таким email уже существует"));
+        userBaseSteps.createAlreadyExistUser();
+        userBaseSteps.getAssert("error","error");
     }
 }

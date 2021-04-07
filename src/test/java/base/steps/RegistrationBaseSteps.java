@@ -1,12 +1,16 @@
 package base.steps;
 
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import models.Register;
+import org.assertj.core.api.AbstractStringAssert;
 import spec.ResponseError;
 import spec.ResponseSuccess;
 import tests.BaseTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static spec.Request.spec;
+import static utils.FileUtils.readFromFile;
 
 public class RegistrationBaseSteps extends BaseTest {
     Register register;
@@ -51,5 +55,23 @@ public class RegistrationBaseSteps extends BaseTest {
                 .post(registerEndPoint)
         .then()
                 .spec(ResponseSuccess.spec());
+    }
+
+    @Step("Зарегистрировать аккаунт с данными, которые уже есть в системе")
+    public void registerAlreadyExistUser(){
+        Response response = spec()
+                .body(readFromFile("src/test/resources/userRegister.json"))
+                .when()
+                .post(registerEndPoint);
+        try {
+            getAssert(response.jsonPath().getString("type"), "error");
+        } catch (NullPointerException e) {
+            e.printStackTrace(); //("Пользователь с таким email уже существует");
+        }
+    }
+
+    @Step("Проверить результат выполнения сценария")
+    public AbstractStringAssert<?> getAssert (String response, String equal) {
+        return assertThat(response).isEqualTo(equal);
     }
 }

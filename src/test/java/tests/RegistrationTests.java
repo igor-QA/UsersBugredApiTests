@@ -3,10 +3,6 @@ package tests;
 import base.steps.RegistrationBaseSteps;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
-import spec.ResponseError;
-
-import static spec.Request.spec;
-import static utils.FileUtils.readFromFile;
 
 public class RegistrationTests extends BaseTest {
     RegistrationBaseSteps registrationBaseSteps = new RegistrationBaseSteps();
@@ -42,12 +38,8 @@ public class RegistrationTests extends BaseTest {
     @Test(description = "Регистрация пользователя, который уже существует в системе")
     @Story("Пользователь не должен зарегистрировать аккаунт, который уже существует в системе")
     public void registerUserAlreadyExist() {
-        spec()
-                .body(readFromFile("src/test/resources/userRegister.json"))
-        .when()
-                .post(registerEndPoint)
-        .then()
-                .spec(ResponseError.spec());
-                //.body("message", equalTo("email vsk@gmail.ru уже есть в базе")); //TODO
+        registrationBaseSteps.registerAlreadyExistUser();
+        registrationBaseSteps.getAssert("error","error");
+        //.body("message", equalTo("email vsk@gmail.ru уже есть в базе")); //TODO
     }
 }

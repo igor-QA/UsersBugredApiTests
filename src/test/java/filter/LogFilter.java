@@ -9,7 +9,8 @@ public class LogFilter {
         private static final LogFilter logFilter = new LogFilter();
     }
 
-    private LogFilter() {}
+    private LogFilter() {
+    }
 
     public static LogFilter filters() {
         return InitLogFilter.logFilter;

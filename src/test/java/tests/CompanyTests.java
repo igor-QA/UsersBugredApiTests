@@ -3,10 +3,6 @@ package tests;
 import base.steps.CompanyBaseSteps;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
-import spec.ResponseError;
-
-import static spec.Request.spec;
-import static utils.FileUtils.readFromFile;
 
 public class CompanyTests extends BaseTest {
     CompanyBaseSteps companyBaseSteps = new CompanyBaseSteps();
@@ -42,11 +38,7 @@ public class CompanyTests extends BaseTest {
     @Test(description = "Создание компании, которая уже существует в системе")
     @Story("Пользователь не должен зарегистрировать компанию в системе, которая уже есть в системе ")
     public void createCompanyAlreadyExistTest(){
-        spec()
-                .body(readFromFile("src/test/resources/createCompany.json"))
-        .when()
-                .post(companyEndPoint)
-        .then()
-                .spec(ResponseError.spec());
+        companyBaseSteps.createAlreadyExistCompany();
+        companyBaseSteps.getAssert("error","error");
     }
 }
