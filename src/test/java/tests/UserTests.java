@@ -2,10 +2,19 @@ package tests;
 
 import base.steps.UserBaseSteps;
 import io.qameta.allure.Story;
+import io.restassured.response.Response;
+import models.User;
 import org.testng.annotations.Test;
+import utils.CommonSteps;
+
+import static io.qameta.allure.Allure.step;
+import static spec.Request.spec;
+import static utils.Endpoints.USER;
 
 public class UserTests extends BaseTest {
     UserBaseSteps userBaseSteps = new UserBaseSteps();
+    User user;
+    private final CommonSteps commonSteps = new CommonSteps();
 
     @Test(description = "Создание нового пользователя")
     @Story("Пользователь должен успешно создать новый аккаунт")
@@ -47,5 +56,20 @@ public class UserTests extends BaseTest {
     public void createUserAlreadyExistTest() {
         userBaseSteps.createAlreadyExistUser();
         userBaseSteps.getAssert("error","error");
+    }
+
+    /**Lambda Steps*/
+    @Test(description = "Прооверка ИНН через CommonSteps")
+    public void createNewUserWithLongTypeINN() {
+
+    step("Создать пользователя с невалидным ИНН",() ->
+        user = new User(email, name, inn + "12344"));
+
+    step("Отправить POST запрос и проверить результат тело ответа", () ->{
+        Response response = spec()
+                .body(user)
+                .when()
+                .post(USER.path());
+        commonSteps.checkResponseResult(response, "type","error"); });
     }
 }
