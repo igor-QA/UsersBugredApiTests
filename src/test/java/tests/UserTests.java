@@ -12,9 +12,9 @@ import static spec.Request.spec;
 import static utils.Endpoints.USER;
 
 public class UserTests extends BaseTest {
-    UserBaseSteps userBaseSteps = new UserBaseSteps();
-    User user;
+    private final UserBaseSteps userBaseSteps = new UserBaseSteps();
     private final CommonSteps commonSteps = new CommonSteps();
+    User user;
 
     @Test(description = "Создание нового пользователя")
     @Story("Пользователь должен успешно создать новый аккаунт")
@@ -65,7 +65,7 @@ public class UserTests extends BaseTest {
     step("Создать пользователя с невалидным ИНН",() ->
         user = new User(email, name, inn + "12344"));
 
-    step("Отправить POST запрос и проверить результат тело ответа", () ->{
+    step("Отправить POST запрос и проверить результат ответа", () ->{
         Response response = spec()
                 .body(user)
                 .when()

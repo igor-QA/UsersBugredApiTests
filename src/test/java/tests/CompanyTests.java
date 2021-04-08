@@ -5,7 +5,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 
 public class CompanyTests extends BaseTest {
-    CompanyBaseSteps companyBaseSteps = new CompanyBaseSteps();
+    private final CompanyBaseSteps companyBaseSteps = new CompanyBaseSteps();
 
     @Test(description="Создание компании")
     @Story("Пользователь должен успешно создать компанию в системе")

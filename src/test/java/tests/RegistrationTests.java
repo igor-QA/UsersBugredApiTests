@@ -5,7 +5,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 
 public class RegistrationTests extends BaseTest {
-    RegistrationBaseSteps registrationBaseSteps = new RegistrationBaseSteps();
+    private final RegistrationBaseSteps registrationBaseSteps = new RegistrationBaseSteps();
 
     @Test(description = "Регистрация нового аккаунта")
     @Story("Пользователь должен успешно зарегистрировать новый аккаунт")
