@@ -6,10 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BaseTest {
-    /**EndPoint*/
-    public final String companyEndPoint = "/createcompany";
-    public final String userEndPoint = "/createuser";
-    public final String registerEndPoint = "/doregister";
     /**JavaFaker*/
     Faker faker = new Faker(); //(new Locale("ru")
     public final String companyName = faker.company().name();

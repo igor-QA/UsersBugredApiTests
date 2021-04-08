@@ -3,13 +3,13 @@ package base.steps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import models.Company;
-import org.assertj.core.api.AbstractStringAssert;
 import spec.ResponseError;
 import spec.ResponseSuccess;
 import tests.BaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static spec.Request.spec;
+import static utils.Endpoints.*;
 import static utils.FileUtils.readFromFile;
 
 public class CompanyBaseSteps extends BaseTest {
@@ -39,7 +39,7 @@ public class CompanyBaseSteps extends BaseTest {
          spec()
                 .body(company)
          .when()
-                .post(companyEndPoint)
+                .post(COMPANY.path())
          .then()
                 .spec(ResponseError.spec());
     }
@@ -48,7 +48,7 @@ public class CompanyBaseSteps extends BaseTest {
          spec()
                 .body(company)
          .when()
-                .post(companyEndPoint)
+                .post(COMPANY.path())
          .then()
                 .spec(ResponseSuccess.spec());
     }
@@ -57,7 +57,7 @@ public class CompanyBaseSteps extends BaseTest {
         Response response = spec()
                 .body(readFromFile("src/test/resources/createCompany.json"))
                 .when()
-                .post(companyEndPoint);
+                .post(COMPANY.path());
         try {
             getAssert(response.jsonPath().getString("type"), "error");
             assertThat(response.jsonPath().getString("type")).isNotNull();
@@ -66,8 +66,8 @@ public class CompanyBaseSteps extends BaseTest {
         }
     }
 
-    @Step("Проверить результат выполнения сценария")
-    public AbstractStringAssert<?> getAssert (String response, String equal){
-        return assertThat(response).isEqualTo(equal);
+    @Step("Проверить результат выполнения сценария") //AbstractStringAssert<?>
+    public void getAssert (String response, String equal){
+        assertThat(response).isEqualTo(equal);
     }
 }

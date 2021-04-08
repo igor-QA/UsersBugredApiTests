@@ -3,13 +3,13 @@ package base.steps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import models.User;
-import org.assertj.core.api.AbstractStringAssert;
 import spec.ResponseError;
 import spec.ResponseSuccess;
 import tests.BaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static spec.Request.spec;
+import static utils.Endpoints.USER;
 import static utils.FileUtils.readFromFile;
 
 public class UserBaseSteps extends BaseTest {
@@ -45,7 +45,7 @@ public class UserBaseSteps extends BaseTest {
         spec()
                 .body(user)
         .when()
-                .post(userEndPoint)
+                .post(USER.path())
         .then()
                 .spec(ResponseSuccess.spec());
     }
@@ -54,7 +54,7 @@ public class UserBaseSteps extends BaseTest {
          spec()
                 .body(user)
          .when()
-                .post(userEndPoint)
+                .post(USER.path())
          .then()
                 .spec(ResponseError.spec());
     }
@@ -64,7 +64,7 @@ public class UserBaseSteps extends BaseTest {
         Response response = spec()
                 .body(readFromFile("src/test/resources/createUser.json"))
                 .when()
-                .post(userEndPoint);
+                .post(USER.path());
         try {
             getAssert(response.jsonPath().getString("type"), "error");
             assertThat(response.jsonPath().getString("type")).isNotNull();
@@ -74,7 +74,7 @@ public class UserBaseSteps extends BaseTest {
     }
 
     @Step("Проверить результат выполнения сценария")
-    public AbstractStringAssert<?> getAssert (String response, String equal){
-            return assertThat(response).isEqualTo(equal);
+    public void getAssert (String response, String equal){
+        assertThat(response).isEqualTo(equal);
     }
 }

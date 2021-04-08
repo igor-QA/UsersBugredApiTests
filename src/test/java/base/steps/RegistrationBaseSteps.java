@@ -3,13 +3,13 @@ package base.steps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import models.Register;
-import org.assertj.core.api.AbstractStringAssert;
 import spec.ResponseError;
 import spec.ResponseSuccess;
 import tests.BaseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static spec.Request.spec;
+import static utils.Endpoints.REGISTER;
 import static utils.FileUtils.readFromFile;
 
 public class RegistrationBaseSteps extends BaseTest {
@@ -42,7 +42,7 @@ public class RegistrationBaseSteps extends BaseTest {
         spec()
                 .body(register)
         .when()
-                .post(registerEndPoint)
+                .post(REGISTER.path())
         .then()
                 .spec(ResponseError.spec());
     }
@@ -52,7 +52,7 @@ public class RegistrationBaseSteps extends BaseTest {
         spec()
                 .body(register)
         .when()
-                .post(registerEndPoint)
+                .post(REGISTER.path())
         .then()
                 .spec(ResponseSuccess.spec());
     }
@@ -62,17 +62,17 @@ public class RegistrationBaseSteps extends BaseTest {
         Response response = spec()
                 .body(readFromFile("src/test/resources/userRegister.json"))
                 .when()
-                .post(registerEndPoint);
+                .post(REGISTER.path());
         try {
             getAssert(response.jsonPath().getString("type"), "error");
-            assertThat(response.jsonPath().getString("type")).isNotNull();
+            //assertThat(response.jsonPath().getString("type")).isNotNull();
         } catch (NullPointerException e) {
             e.printStackTrace(); //("Пользователь с таким email уже существует");
         }
     }
 
     @Step("Проверить результат выполнения сценария")
-    public AbstractStringAssert<?> getAssert (String response, String equal) {
-        return assertThat(response).isEqualTo(equal);
+    public void getAssert (String response, String equal) {
+        assertThat(response).isEqualTo(equal);
     }
 }
