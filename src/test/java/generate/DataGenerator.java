@@ -1,11 +1,11 @@
-package tests;
+package generate;
 
 import com.github.javafaker.Faker;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class BaseTest {
+public class DataGenerator {
     /**JavaFaker*/
     Faker faker = new Faker(); //(new Locale("ru")
     public final String companyName = faker.company().name();

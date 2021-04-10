@@ -1,18 +1,19 @@
 package base.steps;
 
+
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import models.Register;
 import spec.ResponseError;
 import spec.ResponseSuccess;
-import tests.BaseTest;
+import generate.DataGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static spec.Endpoints.REGISTER;
 import static spec.Request.spec;
-import static utils.Endpoints.REGISTER;
 import static utils.FileUtils.readFromFile;
 
-public class RegistrationBaseSteps extends BaseTest {
+public class RegistrationBaseSteps extends DataGenerator {
     Register register;
 
     @Step("Зарегистрировать новый аккаунта")

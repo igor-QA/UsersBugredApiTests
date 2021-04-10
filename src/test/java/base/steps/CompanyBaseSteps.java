@@ -1,18 +1,18 @@
 package base.steps;
 
+import models.Company;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import models.Company;
 import spec.ResponseError;
 import spec.ResponseSuccess;
-import tests.BaseTest;
+import generate.DataGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static spec.Endpoints.COMPANY;
 import static spec.Request.spec;
-import static utils.Endpoints.*;
 import static utils.FileUtils.readFromFile;
 
-public class CompanyBaseSteps extends BaseTest {
+public class CompanyBaseSteps extends DataGenerator {
     Company company;
 
     @Step("Создать запрос на создание новой компании")

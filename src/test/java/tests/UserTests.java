@@ -5,13 +5,14 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import models.User;
 import org.testng.annotations.Test;
-import utils.CommonSteps;
+import spec.CommonSteps;
+import generate.DataGenerator;
 
 import static io.qameta.allure.Allure.step;
 import static spec.Request.spec;
-import static utils.Endpoints.USER;
+import static spec.Endpoints.USER;
 
-public class UserTests extends BaseTest {
+public class UserTests extends DataGenerator {
     private final UserBaseSteps userBaseSteps = new UserBaseSteps();
     private final CommonSteps commonSteps = new CommonSteps();
     User user;
@@ -45,7 +46,7 @@ public class UserTests extends BaseTest {
     }
 
     @Test(description = "Создание пользователя с буквами и символами в ИНН")
-    @Story("Пользователь не должен успешно создать аккаунт с буквами ИНН")
+    @Story("Пользователь не должен успешно создать аккаунт с буквами в ИНН")
     public void createUserWithSymbolInINN() {
         userBaseSteps.createNewUserWithLetterInINN();
         userBaseSteps.sendAndCheckErrorPostRequest("error");
@@ -63,13 +64,14 @@ public class UserTests extends BaseTest {
     public void createNewUserWithLongTypeINN() {
 
     step("Создать пользователя с невалидным ИНН",() ->
-        user = new User(email, name, inn + "12344"));
+        user = new User(email, name, "37685204352412344"));
 
-    step("Отправить POST запрос и проверить результат ответа", () ->{
+    step("Отправить POST запрос и проверить результат теле ответа ответа", () ->{
         Response response = spec()
                 .body(user)
                 .when()
                 .post(USER.path());
-        commonSteps.checkResponseResult(response, "type","error"); });
+        commonSteps.checkResponseResult(response, "type","error");
+        commonSteps.checkResponseResult(response, "message"," Значение 37685204352412344 ИНН ФЛ должен содержать 12 цифр"); });
     }
 }

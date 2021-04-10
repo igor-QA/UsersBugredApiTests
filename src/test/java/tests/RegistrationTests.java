@@ -3,8 +3,9 @@ package tests;
 import base.steps.RegistrationBaseSteps;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
+import generate.DataGenerator;
 
-public class RegistrationTests extends BaseTest {
+public class RegistrationTests extends DataGenerator {
     private final RegistrationBaseSteps registrationBaseSteps = new RegistrationBaseSteps();
 
     @Test(description = "Регистрация нового аккаунта")
