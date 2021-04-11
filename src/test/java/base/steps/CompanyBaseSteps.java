@@ -5,7 +5,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import spec.ResponseError;
 import spec.ResponseSuccess;
-import generate.DataGenerator;
+import generator.DataGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static spec.Endpoints.COMPANY;

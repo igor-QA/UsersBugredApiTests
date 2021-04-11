@@ -3,7 +3,7 @@ package tests;
 import base.steps.CompanyBaseSteps;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
-import generate.DataGenerator;
+import generator.DataGenerator;
 
 public class CompanyTests extends DataGenerator {
     private final CompanyBaseSteps companyBaseSteps = new CompanyBaseSteps();

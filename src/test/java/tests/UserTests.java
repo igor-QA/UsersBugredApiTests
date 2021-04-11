@@ -1,16 +1,16 @@
 package tests;
 
 import base.steps.UserBaseSteps;
+import generator.DataGenerator;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import models.User;
 import org.testng.annotations.Test;
 import spec.CommonSteps;
-import generate.DataGenerator;
 
 import static io.qameta.allure.Allure.step;
-import static spec.Request.spec;
 import static spec.Endpoints.USER;
+import static spec.Request.spec;
 
 public class UserTests extends DataGenerator {
     private final UserBaseSteps userBaseSteps = new UserBaseSteps();
@@ -20,6 +20,7 @@ public class UserTests extends DataGenerator {
     @Test(description = "Создание нового пользователя")
     @Story("Пользователь должен успешно создать новый аккаунт")
     public void createNewUser() {
+
         userBaseSteps.successRegisterNewUser();
         userBaseSteps.sendAndCheckSuccessPostRequest("success");
     }
