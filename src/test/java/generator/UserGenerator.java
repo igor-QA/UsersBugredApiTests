@@ -24,6 +24,16 @@ public class UserGenerator {
         return user(username("en_US"), "", INN());
     }
 
+   public static User newUserWithLongINN() {
+        return user(username("en_US"),
+                email("ru_Ru"),INN()+"1234567");
+
+    }
+    public static User userWithEmptyEmail() {
+        return user(username("en_US"),
+                "",INN());
+    }
+
     public static User userWithIncorrectINN(String symbol) {
         return user(username("en_US"),
                 email("en_US"), INN() + symbol);
